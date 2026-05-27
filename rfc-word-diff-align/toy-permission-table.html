@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Four-way diff comparison</title>
+<style>
+body {
+  margin: 0;
+  background: #f4f6f8;
+  color: #1f252d;
+  font: 14px/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+body > header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  border-bottom: 1px solid #d8dee6;
+  padding: 12px 16px;
+}
+h1 { margin: 0 0 4px; font-size: 20px; }
+.summary { color: #687482; font-size: 13px; }
+.toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 140px 140px;
+  gap: 8px;
+  margin-top: 10px;
+}
+input, select {
+  width: 100%;
+  border: 1px solid #d8dee6;
+  border-radius: 5px;
+  padding: 7px 8px;
+  font: inherit;
+  background: #fff;
+}
+main { padding: 16px; }
+.case {
+  background: #fff;
+  border: 1px solid #d8dee6;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+.case[hidden] { display: none; }
+.case-head {
+  padding: 12px 14px;
+  border-bottom: 1px solid #d8dee6;
+  background: #fbfcfe;
+}
+h2 { margin: 0; font-size: 15px; }
+h2 a { color: #0969da; text-decoration: none; }
+.meta, .paths, .note { color: #687482; font-size: 12px; margin-top: 3px; }
+.label, .signal {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #e8f1ff;
+  color: #174ea6;
+  font-size: 11px;
+}
+.signal { background: #ecfdf3; color: #067647; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(360px, 1fr));
+  gap: 0;
+  overflow-x: auto;
+}
+.panel {
+  min-width: 360px;
+  border-right: 1px solid #d8dee6;
+}
+.panel:last-child { border-right: 0; }
+h3 {
+  position: sticky;
+  top: 80px;
+  z-index: 2;
+  margin: 0;
+  padding: 8px 10px;
+  border-bottom: 1px solid #d8dee6;
+  background: #eef2f6;
+  font-size: 13px;
+}
+.cmd {
+  padding: 6px 10px;
+  border-bottom: 1px solid #d8dee6;
+  color: #687482;
+  font: 11px/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.diff {
+  margin: 0;
+  padding: 10px;
+  overflow: auto;
+  max-height: 760px;
+  font: 12px/1.42 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: #fff;
+  color: #1f252d;
+  white-space: pre;
+}
+.error { color: #b42318; }
+.ansi-bold { font-weight: 700; }
+.ansi-red { color: #b42318; }
+.ansi-green { color: #067647; }
+.ansi-yellow { color: #8a5a00; }
+.ansi-magenta { color: #9f3a8f; }
+.ansi-cyan { color: #0369a1; }
+mark { background: #fff4c2; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Four-way diff comparison</h1>
+  <div class="summary">source: results/word_diff_align_algorithm_examples_bitindex_worddiff_movedcolor_a4.txt | generated: 2026-05-27T02:39:37.012696+00:00 | examples: 2</div>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="search case, path, text">
+    <select id="kind"><option value="">all kinds</option><option value="cpython">cpython</option><option value="fixture">fixture</option></select>
+    <select id="need"><option value="">all needs</option><option value="move">move</option><option value="near-match">near-match</option></select>
+    <select id="label"><option value="">all labels</option></select>
+    <label><input id="wordSignal" type="checkbox"> word</label>
+    <label><input id="movedSignal" type="checkbox"> moved</label>
+    <label><input id="alignSignal" type="checkbox"> align</label>
+    <label><input id="remoteSignal" type="checkbox"> remote</label>
+  </div>
+</header>
+<main>
+<article class="case" id="case-060" data-kind="fixture" data-need="move" data-label="" data-signals="align moved remote">
+  <header class="case-head">
+    <h2><a href="#case-060">[060]</a> fixture | security_define_collision_move</h2>
+    <div class="meta">need=move  <span class="signal">align</span> <span class="signal">moved</span> <span class="signal">remote</span></div>
+    <div class="paths">old: fixtures/security_define_collision_move/old.h<br>new: fixtures/security_define_collision_move/new.h</div>
+    <div class="note">note: moved permission constants hide a dangerous value collision</div>
+    
+  </header>
+  <div class="grid">
+<section class="panel">
+  <h3>histogram</h3>
+  <div class="cmd">git diff --no-index --histogram --color=always --unified=8 fixtures/security_define_collision_move/old.h fixtures/security_define_collision_move/new.h</div>
+  <pre class="diff"><code><span class="ansi-bold">diff --git a/fixtures/security_define_collision_move/old.h b/fixtures/security_define_collision_move/new.h</span>
+<span class="ansi-bold">index de1981e..442697a 100644</span>
+<span class="ansi-bold">--- a/fixtures/security_define_collision_move/old.h</span>
+<span class="ansi-bold">+++ b/fixtures/security_define_collision_move/new.h</span>
+<span class="ansi-cyan">@@ -3,23 +3,23 @@</span>
+ #define ROLE_VIEWER                10
+ #define ROLE_EDITOR                20
+ #define ROLE_AUDITOR               30
+ 
+ #define LIMIT_PUBLIC_DOWNLOADS     100
+ #define LIMIT_PUBLIC_UPLOADS       25
+ #define LIMIT_PUBLIC_INVITES       8
+ 
+<span class="ansi-red">-/* Public resource permissions. */</span>
+<span class="ansi-red">-#define PERM_RESOURCE_READ         0x0001</span>
+<span class="ansi-red">-#define PERM_RESOURCE_LIST         0x0002</span>
+<span class="ansi-red">-#define PERM_RESOURCE_COMMENT      0x0004</span>
+<span class="ansi-red">-#define PERM_RESOURCE_EXPORT       0x0008</span>
+<span class="ansi-red">-#define PERM_RESOURCE_SHARE        0x0010</span>
+<span class="ansi-red">-#define PERM_RESOURCE_ARCHIVE      0x0020</span>
+<span class="ansi-red">-#define PERM_RESOURCE_DELETE       0x0040</span>
+<span class="ansi-red">-#define PERM_RESOURCE_ADMIN        0x0080</span>
+<span class="ansi-red">-</span>
+ #define PERM_INTERNAL_DEBUG        0x0100
+ #define PERM_INTERNAL_IMPERSONATE  0x0200
+ 
+ #define AUDIT_POLICY_STRICT        1
+ #define AUDIT_POLICY_VERBOSE       2
+<span class="ansi-green">+</span>
+<span class="ansi-green">+</span><span class="ansi-green">/* Public resource permissions. */</span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_READ         0x0001</span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_LIST         0x0002</span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_COMMENT      0x0004</span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_EXPORT       0x0001</span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_SHARE        0x0010</span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_ARCHIVE      0x0020</span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_DELETE       0x0040</span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_ADMIN        0x0080</span></code></pre>
+</section>
+
+
+<section class="panel">
+  <h3>word-diff</h3>
+  <div class="cmd">git diff --no-index --histogram --color=always --unified=8 --word-diff=plain fixtures/security_define_collision_move/old.h fixtures/security_define_collision_move/new.h</div>
+  <pre class="diff"><code><span class="ansi-bold">diff --git a/fixtures/security_define_collision_move/old.h b/fixtures/security_define_collision_move/new.h</span>
+<span class="ansi-bold">index de1981e..442697a 100644</span>
+<span class="ansi-bold">--- a/fixtures/security_define_collision_move/old.h</span>
+<span class="ansi-bold">+++ b/fixtures/security_define_collision_move/new.h</span>
+<span class="ansi-cyan">@@ -3,23 +3,23 @@</span>
+#define ROLE_VIEWER                10
+#define ROLE_EDITOR                20
+#define ROLE_AUDITOR               30
+
+#define LIMIT_PUBLIC_DOWNLOADS     100
+#define LIMIT_PUBLIC_UPLOADS       25
+#define LIMIT_PUBLIC_INVITES       8
+
+<span class="ansi-red">[-/* Public resource permissions. */-]</span>
+<span class="ansi-red">[-#define PERM_RESOURCE_READ         0x0001-]</span>
+<span class="ansi-red">[-#define PERM_RESOURCE_LIST         0x0002-]</span>
+<span class="ansi-red">[-#define PERM_RESOURCE_COMMENT      0x0004-]</span>
+<span class="ansi-red">[-#define PERM_RESOURCE_EXPORT       0x0008-]</span>
+<span class="ansi-red">[-#define PERM_RESOURCE_SHARE        0x0010-]</span>
+<span class="ansi-red">[-#define PERM_RESOURCE_ARCHIVE      0x0020-]</span>
+<span class="ansi-red">[-#define PERM_RESOURCE_DELETE       0x0040-]</span>
+<span class="ansi-red">[-#define PERM_RESOURCE_ADMIN        0x0080-]</span>
+
+#define PERM_INTERNAL_DEBUG        0x0100
+#define PERM_INTERNAL_IMPERSONATE  0x0200
+
+#define AUDIT_POLICY_STRICT        1
+#define AUDIT_POLICY_VERBOSE       2
+
+<span class="ansi-green">{+/* Public resource permissions. */+}</span>
+<span class="ansi-green">{+#define PERM_RESOURCE_READ         0x0001+}</span>
+<span class="ansi-green">{+#define PERM_RESOURCE_LIST         0x0002+}</span>
+<span class="ansi-green">{+#define PERM_RESOURCE_COMMENT      0x0004+}</span>
+<span class="ansi-green">{+#define PERM_RESOURCE_EXPORT       0x0001+}</span>
+<span class="ansi-green">{+#define PERM_RESOURCE_SHARE        0x0010+}</span>
+<span class="ansi-green">{+#define PERM_RESOURCE_ARCHIVE      0x0020+}</span>
+<span class="ansi-green">{+#define PERM_RESOURCE_DELETE       0x0040+}</span>
+<span class="ansi-green">{+#define PERM_RESOURCE_ADMIN        0x0080+}</span></code></pre>
+</section>
+
+
+<section class="panel">
+  <h3>color-moved</h3>
+  <div class="cmd">git diff --no-index --histogram --color=always --unified=8 --color-moved=blocks fixtures/security_define_collision_move/old.h fixtures/security_define_collision_move/new.h</div>
+  <pre class="diff"><code><span class="ansi-bold">diff --git a/fixtures/security_define_collision_move/old.h b/fixtures/security_define_collision_move/new.h</span>
+<span class="ansi-bold">index de1981e..442697a 100644</span>
+<span class="ansi-bold">--- a/fixtures/security_define_collision_move/old.h</span>
+<span class="ansi-bold">+++ b/fixtures/security_define_collision_move/new.h</span>
+<span class="ansi-cyan">@@ -3,23 +3,23 @@</span>
+ #define ROLE_VIEWER                10
+ #define ROLE_EDITOR                20
+ #define ROLE_AUDITOR               30
+ 
+ #define LIMIT_PUBLIC_DOWNLOADS     100
+ #define LIMIT_PUBLIC_UPLOADS       25
+ #define LIMIT_PUBLIC_INVITES       8
+ 
+<span class="ansi-bold"><span class="ansi-magenta">-/* Public resource permissions. */</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_READ         0x0001</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_LIST         0x0002</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_COMMENT      0x0004</span></span>
+<span class="ansi-red">-#define PERM_RESOURCE_EXPORT       0x0008</span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_SHARE        0x0010</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_ARCHIVE      0x0020</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_DELETE       0x0040</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_ADMIN        0x0080</span></span>
+<span class="ansi-red">-</span>
+ #define PERM_INTERNAL_DEBUG        0x0100
+ #define PERM_INTERNAL_IMPERSONATE  0x0200
+ 
+ #define AUDIT_POLICY_STRICT        1
+ #define AUDIT_POLICY_VERBOSE       2
+<span class="ansi-green">+</span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">/* Public resource permissions. */</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_READ         0x0001</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_LIST         0x0002</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_COMMENT      0x0004</span></span>
+<span class="ansi-green">+</span><span class="ansi-green">#define PERM_RESOURCE_EXPORT       0x0001</span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_SHARE        0x0010</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_ARCHIVE      0x0020</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_DELETE       0x0040</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_ADMIN        0x0080</span></span></code></pre>
+</section>
+
+
+<section class="panel">
+  <h3>word-diff-align</h3>
+  <div class="cmd">git diff --no-index --histogram --color=always --unified=8 --word-diff-align fixtures/security_define_collision_move/old.h fixtures/security_define_collision_move/new.h</div>
+  <pre class="diff"><code><span class="ansi-bold">diff --git a/fixtures/security_define_collision_move/old.h b/fixtures/security_define_collision_move/new.h</span>
+<span class="ansi-bold">index de1981e..442697a 100644</span>
+<span class="ansi-bold">--- a/fixtures/security_define_collision_move/old.h</span>
+<span class="ansi-bold">+++ b/fixtures/security_define_collision_move/new.h</span>
+<span class="ansi-cyan">@@ -3,23 +3,23 @@</span>
+ #define ROLE_VIEWER                10
+ #define ROLE_EDITOR                20
+ #define ROLE_AUDITOR               30
+ 
+ #define LIMIT_PUBLIC_DOWNLOADS     100
+ #define LIMIT_PUBLIC_UPLOADS       25
+ #define LIMIT_PUBLIC_INVITES       8
+ 
+<span class="ansi-bold"><span class="ansi-magenta">-/* Public resource permissions. */        # aligned 8-&gt;14 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_READ         0x0001        # aligned 9-&gt;15 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_LIST         0x0002        # aligned 10-&gt;16 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_COMMENT      0x0004        # aligned 11-&gt;17 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_EXPORT[-       0x0008-]        # aligned 12-&gt;18 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_SHARE        0x0010        # aligned 13-&gt;19 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_ARCHIVE      0x0020        # aligned 14-&gt;20 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_DELETE       0x0040        # aligned 15-&gt;21 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-#define PERM_RESOURCE_ADMIN        0x0080        # aligned 16-&gt;22 unchanged</span></span>
+<span class="ansi-red">-</span>
+ #define PERM_INTERNAL_DEBUG        0x0100
+ #define PERM_INTERNAL_IMPERSONATE  0x0200
+ 
+ #define AUDIT_POLICY_STRICT        1
+ #define AUDIT_POLICY_VERBOSE       2
+<span class="ansi-green">+</span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">/* Public resource permissions. */        # aligned 8-&gt;14 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_READ         0x0001        # aligned 9-&gt;15 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_LIST         0x0002        # aligned 10-&gt;16 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_COMMENT      0x0004        # aligned 11-&gt;17 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_EXPORT{+       0x0001+}        # aligned 12-&gt;18 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_SHARE        0x0010        # aligned 13-&gt;19 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_ARCHIVE      0x0020        # aligned 14-&gt;20 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_DELETE       0x0040        # aligned 15-&gt;21 unchanged</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">#define PERM_RESOURCE_ADMIN        0x0080        # aligned 16-&gt;22 unchanged</span></span></code></pre>
+</section>
+</div>
+</article>
+
+
+<article class="case" id="case-073" data-kind="cpython" data-need="near-match" data-label="" data-signals="align remote word">
+  <header class="case-head">
+    <h2><a href="#case-073">[073]</a> cpython | b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py</h2>
+    <div class="meta">need=near-match  <span class="signal">align</span> <span class="signal">remote</span> <span class="signal">word</span></div>
+    <div class="paths">old: data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py<br>new: data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</div>
+    <div class="note">note: nonweak unmatched drops by 50</div>
+    
+  </header>
+  <div class="grid">
+<section class="panel">
+  <h3>histogram</h3>
+  <div class="cmd">git diff --no-index --histogram --color=always --unified=8 data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</div>
+  <pre class="diff"><code><span class="ansi-bold">diff --git a/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py b/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</span>
+<span class="ansi-bold">index 3c856a8..5449f04 100644</span>
+<span class="ansi-bold">--- a/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py</span>
+<span class="ansi-bold">+++ b/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</span>
+<span class="ansi-cyan">@@ -312,38 +312,36 @@</span> class OffSysPathTests(fixtures.DistInfoPkgOffPath, unittest.TestCase):
+ 
+ class InvalidateCache(unittest.TestCase):
+     def test_invalidate_cache(self):
+         # No externally observable behavior, but ensures test coverage...
+         importlib.invalidate_caches()
+ 
+ 
+ class PreparedTests(unittest.TestCase):
+<span class="ansi-red">-    def test_normalize(self):</span>
+<span class="ansi-red">-        tests = [</span>
+<span class="ansi-red">-            # Simple</span>
+<span class="ansi-red">-            (&quot;sample&quot;, &quot;sample&quot;),</span>
+<span class="ansi-red">-            # Mixed case</span>
+<span class="ansi-red">-            (&quot;Sample&quot;, &quot;sample&quot;),</span>
+<span class="ansi-red">-            (&quot;SAMPLE&quot;, &quot;sample&quot;),</span>
+<span class="ansi-red">-            (&quot;SaMpLe&quot;, &quot;sample&quot;),</span>
+<span class="ansi-red">-            # Separator conversions</span>
+<span class="ansi-red">-            (&quot;sample-pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample.pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample_pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            # Multiple separators</span>
+<span class="ansi-red">-            (&quot;sample---pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample___pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample...pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            # Mixed separators</span>
+<span class="ansi-red">-            (&quot;sample-._pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample_.-pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            # Complex</span>
+<span class="ansi-red">-            (&quot;Sample__Pkg-name.foo&quot;, &quot;sample_pkg_name_foo&quot;),</span>
+<span class="ansi-red">-            (&quot;Sample__Pkg.name__foo&quot;, &quot;sample_pkg_name_foo&quot;),</span>
+<span class="ansi-red">-            # Uppercase with separators</span>
+<span class="ansi-red">-            (&quot;SAMPLE-PKG&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;Sample.Pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;SAMPLE_PKG&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-        ]</span>
+<span class="ansi-red">-        for name, expected in tests:</span>
+<span class="ansi-red">-            with self.subTest(name=name):</span>
+<span class="ansi-red">-                self.assertEqual(Prepared.normalize(name), expected)</span>
+<span class="ansi-green">+</span><span class="ansi-green">    @fixtures.parameterize(</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Simple</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample&#x27;, expected=&#x27;sample&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Mixed case</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;Sample&#x27;, expected=&#x27;sample&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;SAMPLE&#x27;, expected=&#x27;sample&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;SaMpLe&#x27;, expected=&#x27;sample&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Separator conversions</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample-pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample.pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample_pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Multiple separators</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample---pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample___pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample...pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Mixed separators</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample-._pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample_.-pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Complex</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;Sample__Pkg-name.foo&#x27;, expected=&#x27;sample_pkg_name_foo&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;Sample__Pkg.name__foo&#x27;, expected=&#x27;sample_pkg_name_foo&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Uppercase with separators</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;SAMPLE-PKG&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;Sample.Pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;SAMPLE_PKG&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">    )</span>
+<span class="ansi-green">+</span><span class="ansi-green">    def test_normalize(self, input, expected):</span>
+<span class="ansi-green">+</span><span class="ansi-green">        self.assertEqual(Prepared.normalize(input), expected)</span></code></pre>
+</section>
+
+
+<section class="panel">
+  <h3>word-diff</h3>
+  <div class="cmd">git diff --no-index --histogram --color=always --unified=8 --word-diff=plain data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</div>
+  <pre class="diff"><code><span class="ansi-bold">diff --git a/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py b/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</span>
+<span class="ansi-bold">index 3c856a8..5449f04 100644</span>
+<span class="ansi-bold">--- a/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py</span>
+<span class="ansi-bold">+++ b/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</span>
+<span class="ansi-cyan">@@ -312,38 +312,36 @@</span> class OffSysPathTests(fixtures.DistInfoPkgOffPath, unittest.TestCase):
+
+class InvalidateCache(unittest.TestCase):
+    def test_invalidate_cache(self):
+        # No externally observable behavior, but ensures test coverage...
+        importlib.invalidate_caches()
+
+
+class PreparedTests(unittest.TestCase):
+    <span class="ansi-red">[-def test_normalize(self):-]</span>
+<span class="ansi-red">[-        tests = [-]</span><span class="ansi-green">{+@fixtures.parameterize(+}</span>
+        # Simple
+        <span class="ansi-red">[-(&quot;sample&quot;, &quot;sample&quot;),-]</span><span class="ansi-green">{+dict(input=&#x27;sample&#x27;, expected=&#x27;sample&#x27;),+}</span>
+        # Mixed case
+        <span class="ansi-red">[-(&quot;Sample&quot;, &quot;sample&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;SAMPLE&quot;, &quot;sample&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;SaMpLe&quot;, &quot;sample&quot;),-]</span><span class="ansi-green">{+dict(input=&#x27;Sample&#x27;, expected=&#x27;sample&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;SAMPLE&#x27;, expected=&#x27;sample&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;SaMpLe&#x27;, expected=&#x27;sample&#x27;),+}</span>
+        # Separator conversions
+        <span class="ansi-red">[-(&quot;sample-pkg&quot;, &quot;sample_pkg&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;sample.pkg&quot;, &quot;sample_pkg&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;sample_pkg&quot;, &quot;sample_pkg&quot;),-]</span><span class="ansi-green">{+dict(input=&#x27;sample-pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;sample.pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;sample_pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+        # Multiple separators
+        <span class="ansi-red">[-(&quot;sample---pkg&quot;, &quot;sample_pkg&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;sample___pkg&quot;, &quot;sample_pkg&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;sample...pkg&quot;, &quot;sample_pkg&quot;),-]</span><span class="ansi-green">{+dict(input=&#x27;sample---pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;sample___pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;sample...pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+        # Mixed separators
+        <span class="ansi-red">[-(&quot;sample-._pkg&quot;, &quot;sample_pkg&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;sample_.-pkg&quot;, &quot;sample_pkg&quot;),-]</span><span class="ansi-green">{+dict(input=&#x27;sample-._pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;sample_.-pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+        # Complex
+        <span class="ansi-red">[-(&quot;Sample__Pkg-name.foo&quot;, &quot;sample_pkg_name_foo&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;Sample__Pkg.name__foo&quot;, &quot;sample_pkg_name_foo&quot;),-]</span><span class="ansi-green">{+dict(input=&#x27;Sample__Pkg-name.foo&#x27;, expected=&#x27;sample_pkg_name_foo&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;Sample__Pkg.name__foo&#x27;, expected=&#x27;sample_pkg_name_foo&#x27;),+}</span>
+        # Uppercase with separators
+        <span class="ansi-red">[-(&quot;SAMPLE-PKG&quot;, &quot;sample_pkg&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;Sample.Pkg&quot;, &quot;sample_pkg&quot;),-]</span>
+<span class="ansi-red">[-            (&quot;SAMPLE_PKG&quot;, &quot;sample_pkg&quot;),-]</span>
+<span class="ansi-red">[-        ]-]</span>
+<span class="ansi-red">[-        for name, expected in tests:-]</span>
+<span class="ansi-red">[-            with self.subTest(name=name):-]</span>
+<span class="ansi-red">[-                self.assertEqual(Prepared.normalize(name),-]</span><span class="ansi-green">{+dict(input=&#x27;SAMPLE-PKG&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;Sample.Pkg&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+<span class="ansi-green">{+        dict(input=&#x27;SAMPLE_PKG&#x27;, expected=&#x27;sample_pkg&#x27;),+}</span>
+<span class="ansi-green">{+    )+}</span>
+<span class="ansi-green">{+    def test_normalize(self, input, expected):+}</span>
+<span class="ansi-green">{+        self.assertEqual(Prepared.normalize(input),+}</span> expected)</code></pre>
+</section>
+
+
+<section class="panel">
+  <h3>color-moved</h3>
+  <div class="cmd">git diff --no-index --histogram --color=always --unified=8 --color-moved=blocks data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</div>
+  <pre class="diff"><code><span class="ansi-bold">diff --git a/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py b/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</span>
+<span class="ansi-bold">index 3c856a8..5449f04 100644</span>
+<span class="ansi-bold">--- a/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py</span>
+<span class="ansi-bold">+++ b/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</span>
+<span class="ansi-cyan">@@ -312,38 +312,36 @@</span> class OffSysPathTests(fixtures.DistInfoPkgOffPath, unittest.TestCase):
+ 
+ class InvalidateCache(unittest.TestCase):
+     def test_invalidate_cache(self):
+         # No externally observable behavior, but ensures test coverage...
+         importlib.invalidate_caches()
+ 
+ 
+ class PreparedTests(unittest.TestCase):
+<span class="ansi-red">-    def test_normalize(self):</span>
+<span class="ansi-red">-        tests = [</span>
+<span class="ansi-red">-            # Simple</span>
+<span class="ansi-red">-            (&quot;sample&quot;, &quot;sample&quot;),</span>
+<span class="ansi-red">-            # Mixed case</span>
+<span class="ansi-red">-            (&quot;Sample&quot;, &quot;sample&quot;),</span>
+<span class="ansi-red">-            (&quot;SAMPLE&quot;, &quot;sample&quot;),</span>
+<span class="ansi-red">-            (&quot;SaMpLe&quot;, &quot;sample&quot;),</span>
+<span class="ansi-red">-            # Separator conversions</span>
+<span class="ansi-red">-            (&quot;sample-pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample.pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample_pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            # Multiple separators</span>
+<span class="ansi-red">-            (&quot;sample---pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample___pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample...pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            # Mixed separators</span>
+<span class="ansi-red">-            (&quot;sample-._pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;sample_.-pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            # Complex</span>
+<span class="ansi-red">-            (&quot;Sample__Pkg-name.foo&quot;, &quot;sample_pkg_name_foo&quot;),</span>
+<span class="ansi-red">-            (&quot;Sample__Pkg.name__foo&quot;, &quot;sample_pkg_name_foo&quot;),</span>
+<span class="ansi-red">-            # Uppercase with separators</span>
+<span class="ansi-red">-            (&quot;SAMPLE-PKG&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;Sample.Pkg&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-            (&quot;SAMPLE_PKG&quot;, &quot;sample_pkg&quot;),</span>
+<span class="ansi-red">-        ]</span>
+<span class="ansi-red">-        for name, expected in tests:</span>
+<span class="ansi-red">-            with self.subTest(name=name):</span>
+<span class="ansi-red">-                self.assertEqual(Prepared.normalize(name), expected)</span>
+<span class="ansi-green">+</span><span class="ansi-green">    @fixtures.parameterize(</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Simple</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample&#x27;, expected=&#x27;sample&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Mixed case</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;Sample&#x27;, expected=&#x27;sample&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;SAMPLE&#x27;, expected=&#x27;sample&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;SaMpLe&#x27;, expected=&#x27;sample&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Separator conversions</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample-pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample.pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample_pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Multiple separators</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample---pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample___pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample...pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Mixed separators</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample-._pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;sample_.-pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Complex</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;Sample__Pkg-name.foo&#x27;, expected=&#x27;sample_pkg_name_foo&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;Sample__Pkg.name__foo&#x27;, expected=&#x27;sample_pkg_name_foo&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        # Uppercase with separators</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;SAMPLE-PKG&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;Sample.Pkg&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">        dict(input=&#x27;SAMPLE_PKG&#x27;, expected=&#x27;sample_pkg&#x27;),</span>
+<span class="ansi-green">+</span><span class="ansi-green">    )</span>
+<span class="ansi-green">+</span><span class="ansi-green">    def test_normalize(self, input, expected):</span>
+<span class="ansi-green">+</span><span class="ansi-green">        self.assertEqual(Prepared.normalize(input), expected)</span></code></pre>
+</section>
+
+
+<section class="panel">
+  <h3>word-diff-align</h3>
+  <div class="cmd">git diff --no-index --histogram --color=always --unified=8 --word-diff-align data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</div>
+  <pre class="diff"><code><span class="ansi-bold">diff --git a/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py b/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</span>
+<span class="ansi-bold">index 3c856a8..5449f04 100644</span>
+<span class="ansi-bold">--- a/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/old.py</span>
+<span class="ansi-bold">+++ b/data/experiments/server_expand_1/git_pairs/cpython/b5e4c46be24d__Lib__test__test_importlib__metadata__test_api.py/new.py</span>
+<span class="ansi-cyan">@@ -312,38 +312,36 @@</span> class OffSysPathTests(fixtures.DistInfoPkgOffPath, unittest.TestCase):
+ 
+ class InvalidateCache(unittest.TestCase):
+     def test_invalidate_cache(self):
+         # No externally observable behavior, but ensures test coverage...
+         importlib.invalidate_caches()
+ 
+ 
+ class PreparedTests(unittest.TestCase):
+<span class="ansi-red">-    def test_normalize(self):</span>
+<span class="ansi-red">-        tests = [</span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]# Simple        # aligned 10-&gt;9 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample[-&quot;-],[- &quot;-]sample[-&quot;-]),        # aligned 11-&gt;10 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]# Mixed case        # aligned 12-&gt;11 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]Sample[-&quot;-],[- &quot;-]sample[-&quot;-]),        # aligned 13-&gt;12 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]SAMPLE[-&quot;-],[- &quot;-]sample[-&quot;-]),        # aligned 14-&gt;13 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]SaMpLe[-&quot;-],[- &quot;-]sample[-&quot;-]),        # aligned 15-&gt;14 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]# Separator conversions        # aligned 16-&gt;15 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample-pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 17-&gt;16 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample.pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 18-&gt;17 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample_pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 19-&gt;18 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]# Multiple separators        # aligned 20-&gt;19 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample---pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 21-&gt;20 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample___pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 22-&gt;21 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample...pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 23-&gt;22 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]# Mixed separators        # aligned 24-&gt;23 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample-._pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 25-&gt;24 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]sample_.-pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 26-&gt;25 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]# Complex        # aligned 27-&gt;26 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]Sample__Pkg-name.foo[-&quot;-],[- &quot;-]sample_pkg_name_foo[-&quot;-]),        # aligned 28-&gt;27 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]Sample__Pkg.name__foo[-&quot;-],[- &quot;-]sample_pkg_name_foo[-&quot;-]),        # aligned 29-&gt;28 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]# Uppercase with separators        # aligned 30-&gt;29 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]SAMPLE-PKG[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 31-&gt;30 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]Sample.Pkg[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 32-&gt;31 edited</span></span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-            -]([-&quot;-]SAMPLE_PKG[-&quot;-],[- &quot;-]sample_pkg[-&quot;-]),        # aligned 33-&gt;32 edited</span></span>
+<span class="ansi-red">-        ]</span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-        for name-],[- -]expected[- in tests-]:        # aligned 35-&gt;34 edited</span></span>
+<span class="ansi-red">-            with self.subTest(name=name):</span>
+<span class="ansi-bold"><span class="ansi-magenta">-[-                -]self.assertEqual(Prepared.normalize([-name-]), expected)        # aligned 37-&gt;35 edited</span></span>
+<span class="ansi-green">+</span><span class="ansi-green">    @fixtures.parameterize(</span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        +}# Simple        # aligned 10-&gt;9 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample{+&#x27;+},{+ expected=&#x27;+}sample{+&#x27;+}),        # aligned 11-&gt;10 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        +}# Mixed case        # aligned 12-&gt;11 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}Sample{+&#x27;+},{+ expected=&#x27;+}sample{+&#x27;+}),        # aligned 13-&gt;12 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}SAMPLE{+&#x27;+},{+ expected=&#x27;+}sample{+&#x27;+}),        # aligned 14-&gt;13 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}SaMpLe{+&#x27;+},{+ expected=&#x27;+}sample{+&#x27;+}),        # aligned 15-&gt;14 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        +}# Separator conversions        # aligned 16-&gt;15 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample-pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 17-&gt;16 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample.pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 18-&gt;17 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample_pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 19-&gt;18 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        +}# Multiple separators        # aligned 20-&gt;19 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample---pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 21-&gt;20 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample___pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 22-&gt;21 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample...pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 23-&gt;22 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        +}# Mixed separators        # aligned 24-&gt;23 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample-._pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 25-&gt;24 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}sample_.-pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 26-&gt;25 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        +}# Complex        # aligned 27-&gt;26 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}Sample__Pkg-name.foo{+&#x27;+},{+ expected=&#x27;+}sample_pkg_name_foo{+&#x27;+}),        # aligned 28-&gt;27 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}Sample__Pkg.name__foo{+&#x27;+},{+ expected=&#x27;+}sample_pkg_name_foo{+&#x27;+}),        # aligned 29-&gt;28 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        +}# Uppercase with separators        # aligned 30-&gt;29 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}SAMPLE-PKG{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 31-&gt;30 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}Sample.Pkg{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 32-&gt;31 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        dict+}({+input=&#x27;+}SAMPLE_PKG{+&#x27;+},{+ expected=&#x27;+}sample_pkg{+&#x27;+}),        # aligned 33-&gt;32 edited</span></span>
+<span class="ansi-green">+</span><span class="ansi-green">    )</span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+    def test_normalize(self+},{+ input, +}expected{+)+}:        # aligned 35-&gt;34 edited</span></span>
+<span class="ansi-bold"><span class="ansi-cyan">+</span></span><span class="ansi-bold"><span class="ansi-cyan">{+        +}self.assertEqual(Prepared.normalize({+input+}), expected)        # aligned 37-&gt;35 edited</span></span></code></pre>
+</section>
+</div>
+</article>
+</main>
+<script>
+const search = document.getElementById('search');
+const kind = document.getElementById('kind');
+const need = document.getElementById('need');
+const label = document.getElementById('label');
+const wordSignal = document.getElementById('wordSignal');
+const movedSignal = document.getElementById('movedSignal');
+const alignSignal = document.getElementById('alignSignal');
+const remoteSignal = document.getElementById('remoteSignal');
+const cards = [...document.querySelectorAll('.case')];
+function cardText(card) { return card.textContent.toLowerCase(); }
+function applyFilters() {
+  const terms = search.value.toLowerCase().split(/\s+/).filter(Boolean);
+  for (const card of cards) {
+    const text = cardText(card);
+    const okSearch = terms.every(t => text.includes(t));
+    const okKind = !kind.value || card.dataset.kind === kind.value;
+    const okNeed = !need.value || card.dataset.need === need.value;
+    const okLabel = !label.value || card.dataset.label === label.value;
+    const signals = new Set((card.dataset.signals || '').split(/\s+/).filter(Boolean));
+    const okWord = !wordSignal.checked || signals.has('word');
+    const okMoved = !movedSignal.checked || signals.has('moved');
+    const okAlign = !alignSignal.checked || signals.has('align');
+    const okRemote = !remoteSignal.checked || signals.has('remote');
+    card.hidden = !(okSearch && okKind && okNeed && okLabel && okWord && okMoved && okAlign && okRemote);
+  }
+}
+search.addEventListener('input', applyFilters);
+kind.addEventListener('change', applyFilters);
+need.addEventListener('change', applyFilters);
+label.addEventListener('change', applyFilters);
+wordSignal.addEventListener('change', applyFilters);
+movedSignal.addEventListener('change', applyFilters);
+alignSignal.addEventListener('change', applyFilters);
+remoteSignal.addEventListener('change', applyFilters);
+</script>
+</body>
+</html>
